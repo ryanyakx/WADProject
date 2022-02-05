@@ -1,0 +1,242 @@
+{
+  "chairs" : {
+    "gaming_chair_1" : {
+      "apiKey" : "b7e02b8e8cc64f3a8179a04f0c9a05af",
+      "date" : {
+        "dateStr" : "2020/11/17",
+        "day" : 2020,
+        "month" : 11,
+        "year" : 17
+      },
+      "description" : "a template gaming chair",
+      "imageURL" : "https://i.imgur.com/C7yP21c.png",
+      "name" : "gaming chair 1",
+      "pageURL" : "../productpage.html?name=gaming_chair_1",
+      "price" : 200,
+      "rating" : 5,
+      "reviewObjList" : [ {
+        "reviewDescription" : "PogChamp",
+        "reviewId" : 122,
+        "userId" : "donaldtrump",
+        "rating" : 4
+      }, {
+        "reviewDescription" : "NICE CHAIR LOL",
+        "reviewId" : 145,
+        "userId" : "TestUser2",
+        "rating" : 5
+      }, {
+        "reviewDescription" : "Spooderman is just a sticky boy",
+        "reviewId" : 942,
+        "userId" : 3333,
+        "rating" : 2
+      } ],
+      "type" : "gaming"
+    },
+    "gaming_chair_2" : {
+      "apiKey" : "de4368cd3fac41bba2888b74e6a4e05e",
+      "date" : {
+        "dateStr" : "2020/11/19",
+        "day" : 2020,
+        "month" : 11,
+        "year" : 19
+      },
+      "description" : "a template gaming chair",
+      "imageURL" : "https://i.imgur.com/9DAGJSS.png",
+      "name" : "gaming chair 2",
+      "pageURL" : "../productpage.html?name=gaming_chair_2",
+      "price" : 600,
+      "rating" : 4,
+      "reviewObjList" : [ {
+        "reviewDescription" : "Spooderman is just a sticky boy",
+        "reviewId" : 942,
+        "userId" : "donaldtrump",
+        "rating" : 1
+      } ],
+      "type" : "gaming"
+    },
+    "gaming_chair_3" : {
+      "apiKey" : "22e7ee0e0b5f447dbb4ab646b90b79f2",
+      "date" : {
+        "dateStr" : "2020/11/19",
+        "day" : 2020,
+        "month" : 11,
+        "year" : 19
+      },
+      "description" : "a template gaming chair",
+      "imageURL" : "https://i.imgur.com/iFVHJYN.png",
+      "name" : "gaming chair 3",
+      "pageURL" : "../productpage.html?name=gaming_chair_3",
+      "price" : 600,
+      "rating" : 4,
+      "reviewObjList" : [ {
+        "reviewDescription" : "Spooderman is just a sticky boy",
+        "reviewId" : 942,
+        "userId" : "donaldtrump",
+        "rating" : 1
+      } ],
+      "type" : "gaming"
+    },
+    "gaming_chair_4" : {
+      "apiKey" : "32df669702634b36a85e154c9b59f546",
+      "date" : {
+        "dateStr" : "2020/11/19",
+        "day" : 2020,
+        "month" : 11,
+        "year" : 19
+      },
+      "description" : "a template gaming chair",
+      "imageURL" : "https://i.imgur.com/030KjDL.png",
+      "name" : "gaming chair 4",
+      "pageURL" : "../productpage.html?name=gaming_chair_4",
+      "price" : 600,
+      "rating" : 4,
+      "reviewObjList" : [ {
+        "reviewDescription" : "Spooderman is just a sticky boy",
+        "reviewId" : 942,
+        "userId" : "donaldtrump",
+        "rating" : 1
+      } ],
+      "type" : "gaming"
+    },
+    "office_chair_1" : {
+      "apiKey" : "5088f098dcf943f4b295c3ee34d5522f",
+      "date" : {
+        "dateStr" : "2020/11/15",
+        "day" : 2020,
+        "month" : 11,
+        "year" : 15
+      },
+      "description" : "a template office chair",
+      "imageURL" : "https://i.imgur.com/RhHF2DT.png",
+      "name" : "office chair 1",
+      "pageURL" : "../productpage.html?name=office_chair_1",
+      "price" : 800,
+      "rating" : 3,
+      "reviewObjList" : [ {
+        "reviewDescription" : "Puke, low effort chair",
+        "reviewId" : 465,
+        "userId" : "TestUser2",
+        "rating" : 2
+      } ],
+      "type" : "office"
+    },
+    "office_chair_2" : {
+      "apiKey" : "736dba4389604f15a23f29ecf681229b",
+      "date" : {
+        "dateStr" : "2020/11/12",
+        "day" : 2020,
+        "month" : 11,
+        "year" : 12,
+        "rating" : 4
+      },
+      "description" : "a office chair chair",
+      "imageURL" : "https://i.imgur.com/NfZ6JoH.png",
+      "name" : "office chair 2",
+      "pageURL" : "../productpage.html?name=office_chair_2",
+      "price" : 1000,
+      "rating" : 4,
+      "reviewObjList" : [ {
+        "reviewDescription" : "My chair died within 2 weeks",
+        "reviewId" : 452,
+        "userId" : "donaldtrump",
+        "rating" : 5
+      } ],
+      "type" : "office"
+    },
+    "office_chair_3" : {
+      "apiKey" : "ba29fbe8596f4b30976e300dd20a37ba",
+      "date" : {
+        "dateStr" : "2020/11/12",
+        "day" : 2020,
+        "month" : 11,
+        "year" : 12,
+        "rating" : 4
+      },
+      "description" : "a office chair chair",
+      "imageURL" : "https://i.imgur.com/rJ2fjho.png",
+      "name" : "office chair 3",
+      "pageURL" : "../productpage.html?name=office_chair_3",
+      "price" : 1000,
+      "rating" : 4,
+      "reviewObjList" : [ {
+        "reviewDescription" : "My chair died within 2 weeks",
+        "reviewId" : 452,
+        "userId" : "donaldtrump",
+        "rating" : 5
+      } ],
+      "type" : "office"
+    },
+    "wooden_chair_1" : {
+      "apiKey" : "b0b49a6e73ed4311aca51af0f5a2822a",
+      "date" : {
+        "dateStr" : "2020/11/18",
+        "day" : 2020,
+        "month" : 11,
+        "year" : 18
+      },
+      "description" : "a template wooden chair",
+      "imageURL" : "https://i.imgur.com/k7pJvyv.png",
+      "name" : "wooden chair 1",
+      "pageURL" : "../productpage.html?name=wooden_chair_1",
+      "price" : 400,
+      "rating" : 2,
+      "reviewObjList" : [ {
+        "reviewDescription" : "NICE CHAIR LOL",
+        "reviewId" : 145,
+        "userId" : "donaldtrump",
+        "rating" : 5
+      },
+      {
+        "reviewDescription" : "NICE CHAIR LOL",
+        "reviewId" : 145,
+        "userId" : "donaldtrump",
+        "rating" : 3
+      } ],
+      "type" : "wooden"
+    },
+    "wooden_chair_2" : {
+      "apiKey" : "4574db916bf349c0bd391c63243ff954",
+      "date" : {
+        "dateStr" : "2020/11/13",
+        "day" : 2020,
+        "month" : 11,
+        "year" : 13
+      },
+      "description" : "a template basic chair",
+      "imageURL" : "https://i.imgur.com/k3nxJRF.png",
+      "name" : "wooden chair 2",
+      "pageURL" : "../productpage.html?name=wooden_chair_2",
+      "price" : 200,
+      "rating" : 5,
+      "reviewObjList" : [ {
+        "reviewDescription" : "I wanna lick this chair so bad",
+        "reviewId" : 832,
+        "userId" : "TestUser2",
+        "rating" : 3
+      } ],
+      "type" : "wooden"
+    },
+    "wooden_chair_3" : {
+      "apiKey" : "bb62662db9fe4bf78951534ca2c8d6c7",
+      "date" : {
+        "dateStr" : "2020/11/13",
+        "day" : 2020,
+        "month" : 11,
+        "year" : 13
+      },
+      "description" : "a template basic chair",
+      "imageURL" : "https://i.imgur.com/SVYwy00.png",
+      "name" : "wooden chair 3",
+      "pageURL" : "../productpage.html?name=wooden_chair_3",
+      "price" : 200,
+      "rating" : 5,
+      "reviewObjList" : [ {
+        "reviewDescription" : "I wanna lick this chair so bad",
+        "reviewId" : 832,
+        "userId" : "TestUser2",
+        "rating" : 3
+      } ],
+      "type" : "wooden"
+    }
+  }
+}

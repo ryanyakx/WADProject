@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChairGod</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="account/project.css">
+
+</head>
+
+<body data-bs-spy="scroll" data-bs-offset="0">
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Navbar -- Change collapse breakpoint with navbar-expand-*breakpoint* -- -->
+            <nav id="myNavbar" class="navbar navbar-expand-md navbar-custom navbar-dark fixed-top px-3">
+
+                <!-- Brand -->
+                <a class="navbar-brand" href="#">ChairGod</a>
+                <!-- Navbar toggler -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".dual-collapse2" aria-controls=".dual-collapse2" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Left aligned links -->
+                <div class="collapse navbar-collapse dual-collapse2" id="navbarCollapseLeft">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link linkText" href="#landingPage">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link linkText" href="#aboutUsPage">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link linkText" href="#guidePage">Choosing Guide</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link linkText" href="catalogue/catalogue1.html">Catalogue</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link linkText" href="forum/forum.html">Forum</a>
+                    </li>
+                    
+                </ul>
+                </div>
+                <!-- End of left aligned links -->
+
+                <!-- Right aligned links -->
+                <div class="collapse navbar-collapse dual-collapse2" id="navbarCollapseRight">
+                <ul class="navbar-nav ms-auto navPadding">
+                    <li class="nav-item" v-if="loggedUser == ''">
+                        <a class="nav-link linkText" href="account/login.html">Login</a>
+                    </li>
+                    <li class="nav-item dropdown" v-if="loggedUser != ''">
+                        <a class="nav-link dropdown-toggle linkText" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">{{ loggedUser }}</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="account/passwordChange.html">Password Change</a></li>
+                            <li><a class="dropdown-item" v-on:click="logout()" >Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                </div>
+                <!-- End of right aligned links -->
+
+            </nav>
+            <!-- End of navbar -->
+
+        </div>
+    </div>
+    
+    <div data-bs-target="#myNavbar">
+        <!-- Each new container demarcs a new "page" -->
+        <!-- Page 1 / Landing Page -->
+        <div class="container-fluid" id="landingPage">
+            <div class="d-flex flex-column align-items-center">
+                <h1>Chair shopping made easy.</h1>
+                <div class="break"></div>
+                <div id="loginBtns">
+                    <a href="#aboutUsPage" class="btn btn-secondary btn-lg btnSize" role="button">Learn More</a>
+                    <a href="catalogue/catalogue1.html" class="btn btn-secondary btn-lg btnSize" role="button">View Chairs</a>
+                </div>
+                <div class="break"></div>
+                <div id="landingImg">
+                    <img src="account/images/landingImg.jpg" class="img-fluid">
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- Page 2 / About Us -->
+        <div class="container-fluid" id="aboutUsPage">
+            <div class="d-flex flex-column align-items-center">
+                <h1>About Us<h1>
+                <div class="bodyText" style="text-align: center;">
+                    Choosing the right chair can sometimes be a daunting task. We are here to help with that.
+                </div>
+                <div class="breakPara"></div>
+                <div class="bodyText" style="text-align: center;">
+                    With our 3D viewer, you will be able to visualise the chair before making a purchase, minimizing the risk of making a wrong purchase. 
+                </div>
+                <div class="breakPara"></div>
+                <div class="bodyText" style="text-align: center;">We have multiple chairs in our catalogue, each with their own uses 
+                    and fulfills different functions. Here are some of them.
+                </div>
+                <div class="break"></div>
+
+                <div class="album">
+                    <div class="container px-5">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-3">
+                            <!-- start of one card -->
+
+                            <div class="col">
+                                <div class="card shadow-sm">
+                                    <img class="card-img-top img-fluid" src="account/images/some chair3.png"> <!-- Use 1500x1500 image res -->
+                    
+                                    <div class="card-body">
+                                        <h5 class="card-title">Gaming Chairs</h5>
+                                        <div class="breakPara"></div>
+                                        <p class="card-text">Performance boost.</p> 
+                                    </div>                          
+                                </div>
+                            </div>    
+
+                            <div class="col">
+                                <div class="card shadow-sm">
+                                    <img class="card-img-top img-fluid" src="account/images/some chair.png"> <!-- Use 1500x1500 image res -->
+                    
+                                    <div class="card-body">
+                                        <h5 class="card-title">Office Chairs</h5>
+                                        <div class="breakPara"></div>
+                                        <p class="card-text">For professionals.</p> 
+                                    </div>                           
+                                </div>   
+                            </div>                         
+
+                            <div class="col">
+                                <div class="card shadow-sm">
+                                    <img class="card-img-top img-fluid" src="account/images/some chair5.png"> <!-- Use 1500x1500 image res -->
+                    
+                                    <div class="card-body">
+                                        <h5 class="card-title">Wooden Chairs</h5>
+                                        <div class="breakPara"></div>
+                                        <p class="card-text">Old-school.</p> 
+                                    </div>                            
+                                </div>
+                            </div>
+                                                        
+                        </div> 
+                    </div>
+                </div>
+    
+                <div class="break"></div>
+            
+            </div>
+
+        </div>
+
+        <!-- Page 3 / Chair Choosing Guide -->
+        <div class="container-fluid" id="guidePage">
+
+            
+            <h1>How to Choose the Perfect Chair</h1>
+            <!-- START THE FEATURETTES -->
+
+            <hr class="featurette-divider">
+
+            <div class="row featurette">
+                <div class="col-md-7">
+                    <h2 class="featurette-heading">Chair Height.<span class="text-muted"> In case your chair height isn't adjustable</span> </h2>
+                    <div class="breakPara"></div>
+                    <p class="lead bodyText"> A good rule of thumb is to leave between 25 - 30 centimeters from the chair seat to the underside of the tabletop.
+                        This will give you enough space to sit with or without your legs crossed–and feel comfortable.
+                    </p>
+                </div>
+                <div class="col-md-5">
+                    <img class="featurette-image img-fluid mx-auto" src="account/images/1.png" alt="Generic placeholder image">
+                </div>
+            </div>
+
+            <hr class="featurette-divider">
+
+            <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading">Arm Rest Height. <span class="text-muted"> In case your arm rests aren't adjustable</span></h2>
+                <div class="breakPara"></div>
+                <p class="lead bodyText">Standard armrests should be at about the same height as the point of your bent elbows.
+                    Since there are great variances in individual arm lengths and body proportions, we can't give you the exact measurements, but
+                    the arm rest should be around 15 centimeters above the chair for an average person.
+                </p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img class="featurette-image img-fluid mx-auto" src="account/images/2.png" alt="Generic placeholder image">
+            </div>
+            </div>
+
+            <hr class="featurette-divider">
+
+            <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">Seat Width.</h2>
+                <div class="breakPara"></div>
+                <p class="lead bodyText">Your seat should be wider than your hips, to allow space for movement and clothing. 
+                    A seat 5 centimeters wider than you are is ideal.
+                </p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-fluid mx-auto" src="account/images/3.png" alt="Generic placeholder image">
+            </div>
+            </div>
+
+            <hr class="featurette-divider">
+
+            <!-- /END THE FEATURETTES -->
+
+        </div>
+
+        <div class="container-fluid" id="footer">
+            <footer class="text-muted">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>&copy; 2021 ChairGod</p>
+                            <p>Website for a school project. Chairs used in images do not belong to us.</p>
+                        </div>
+
+                        <div class="col-md-3"></div>
+
+                        <div class="col-md-3">
+                            <p class="lead">Contact Us</p>
+                            <p> <span class="lead">Phone:</span> +65 6123 4567</p>
+                            <p> <span class="lead">Email:</span> ryan.yak.2020@scis.smu.edu.sg</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+    </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <!--Vuefire-->
+    <script src="https://unpkg.com/vuefire/dist/vuefire.js"></script>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    loggedUser : "",
+                }
+            }
+            ,
+
+            created() {
+                if (localStorage.loggedUser) {
+                    this.loggedUser = localStorage.loggedUser;
+                }
+            }
+            ,
+
+            methods: {
+                logout () {
+                    this.loggedUser = "";
+                    localStorage.removeItem("loggedUser");
+                    alert("Logged Out Successfully")
+                }
+            }
+
+        })
+
+        app.mount("#myNavbar");
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+    crossorigin="anonymous"></script>
+    
+    
+</body>
+
+</html>

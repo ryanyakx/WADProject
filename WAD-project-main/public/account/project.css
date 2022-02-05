@@ -1,0 +1,168 @@
+
+.navbar-custom {
+    background-color: darkslategray;
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    padding-left: 3%;
+    padding-right: 3%;
+    color: lightgray;
+    font-family: 'Lato', sans-serif; 
+    font-size: 20px; font-weight: 300;
+}
+
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    color: #ffffff;
+}
+
+.linkText {
+    color: lightgray; 
+    font-size: 15px; font-weight: 300;
+}
+
+#landingPage {
+    background-color: rgb(255, 255, 255);
+
+}
+
+h1 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: black;
+
+}
+
+@media (min-width: 300px) {  
+    h1 {font-size: 1.5rem;} /*1rem = 16px*/
+    #landingPage {padding-top: 15%;}
+    .bodyText {font-size: 12px;}
+    .btnSize {font-size:11px;}
+    #aboutUsPage {padding-top: 15%; padding-left: 15%; padding-right: 15%;}
+    #guidePage {padding-top: 15%;}
+    #loginPage {padding-top: 15%; padding-bottom: 8%; padding-left: 10%; padding-right: 10%;}
+    #createAccPage {padding-top: 15%; padding-bottom: 8%; padding-left: 10%; padding-right: 10%;}
+    #successPage {padding-top: 15%; padding-bottom: 8%; padding-left: 10%; padding-right: 10%;}
+    #passChangePage {padding-top: 15%; padding-bottom: 8%; padding-left: 10%; padding-right: 10%;}
+    #recoveryPage {padding-top: 15%; padding-bottom: 8%; padding-left: 10%; padding-right: 10%;}
+}
+
+@media (min-width: 768px) {  
+    h1 {font-size: 2rem;} /*1rem = 16px*/
+    #landingPage {padding-top: 15%;}
+    .navPadding {padding-right: 40%;}
+    .bodyText {font-size: 14px;}
+    .btnSize {font-size:14px;}
+    #aboutUsPage {padding-top: 15%; padding-left: 15%; padding-right: 15%;}
+    #guidePage {padding-top: 15%; padding-left: 10%;}
+    #loginPage {padding-top: 15%; padding-bottom: 8%; padding-left: 10%; padding-right: 10%;}
+    #createAccPage {padding-top: 15%; padding-bottom: 8%; padding-left: 10%; padding-right: 10%;}
+    #successPage {padding-top: 15%; padding-bottom: 8%; padding-left: 10%; padding-right: 10%;}
+    #passChangePage {padding-top: 15%; padding-bottom: 8%; padding-left: 10%; padding-right: 10%;}
+    #recoveryPage {padding-top: 15%; padding-bottom: 8%; padding-left: 10%; padding-right: 10%;}
+}
+
+@media (min-width: 992px) { 
+    h1 {font-size: 2.5rem;} /*1rem = 16px*/
+    #landingPage {padding-top: 15%;}
+    .navPadding {padding-right: 25%;}
+    .bodyText {font-size: 16px;}
+    .btnSize {font-size:17px;}
+    #aboutUsPage {padding-top: 15%; padding-left: 15%; padding-right: 15%;}
+    #guidePage {padding-top: 15%; padding-left: 10%;}
+    #loginPage {padding-top: 15%; padding-bottom: 8%; padding-left: 10%; padding-right: 10%;}
+    #createAccPage {padding-top: 15%; padding-bottom: 8%; padding-left: 10%; padding-right: 10%;}
+    #successPage {padding-top: 15%; padding-bottom: 8%; padding-left: 10%; padding-right: 10%;}
+    #passChangePage {padding-top: 15%; padding-bottom: 8%; padding-left: 10%; padding-right: 10%;}
+    #recoveryPage {padding-top: 15%; padding-bottom: 8%; padding-left: 10%; padding-right: 10%;}
+   
+}
+
+@media (min-width: 1200px) {  
+    h1 {font-size: 3rem;} /*1rem = 16px*/ 
+    #landingPage {padding-top: 10%;}
+    .navPadding {padding-right: 15%;}
+    .bodyText {font-size: 17px;}  
+    .btnSize {font-size: 20px;} 
+    #aboutUsPage {padding-top: 10%; padding-left: 15%; padding-right: 15%;}
+    #guidePage {padding-top: 10%; padding-left: 10%;}
+    #loginPage {padding-top: 10%; padding-bottom: 5%; padding-left: 15%; padding-right: 15%;}
+    #createAccPage {padding-top: 10%; padding-bottom: 5%; padding-left: 15%; padding-right: 15%;}
+    #successPage {padding-top: 10%; padding-bottom: 5%; padding-left: 15%; padding-right: 15%;}
+    #passChangePage {padding-top: 10%; padding-bottom: 5%; padding-left: 15%; padding-right: 15%;}
+    #recoveryPage {padding-top: 10%; padding-bottom: 5%; padding-left: 15%; padding-right: 15%;}
+    
+}
+
+.break {
+    height: 50px;
+}
+
+#aboutUsPage {
+    background-color: linen;
+}
+
+.bodyText {
+    color: black;
+    padding-top:2%;
+}
+
+.breakPara {
+    height: 10px;
+}
+
+.card-img-top {
+    width: 100%;
+    object-fit: cover;
+}
+
+.card-text{
+    font-size:14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.card-body {
+    background-color: whitesmoke;
+}
+
+#guidePage {
+    background-color: lightcyan;
+}
+
+#loginPage {
+    background-color: white;
+}
+
+#createAccPage {
+    background-color: white;
+}
+
+#successPage {
+    background-color: white;
+}
+
+#passChangePage {
+    background-color: white;
+}
+
+#recoveryPage {
+    background-color: white;
+}
+
+.featurette-divider {
+    margin: 5rem 0; /* Space out the Bootstrap <hr> more */
+}
+  
+/* Thin out the marketing headings */
+.featurette-heading {
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -.05rem;
+}
+
+#footer {
+    background-color: white;
+    padding-bottom: 3%;
+}

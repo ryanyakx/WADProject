@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success!</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    
+    <link rel="stylesheet" type="text/css" href="project.css">
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Navbar -- Change collapse breakpoint with navbar-expand-*breakpoint* -- -->
+            <nav id="myNavbar" class="navbar navbar-expand-md navbar-custom navbar-dark fixed-top px-3">
+
+                <!-- Brand -->
+                <a class="navbar-brand" href="../index.html">ChairGod</a>
+                <!-- Navbar toggler -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".dual-collapse2" aria-controls=".dual-collapse2" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Left aligned links -->
+                <div class="collapse navbar-collapse dual-collapse2" id="navbarCollapseLeft">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link linkText" href="../index.html#landingPage">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link linkText" href="../index.html#aboutUsPage">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link linkText" href="../index.html#guidePage">Choosing Guide</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link linkText" href="../catalogue/catalogue1.html">Catalogue</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link linkText" href="../forum/forum.html">Forum</a>
+                    </li>
+                    
+                </ul>
+                </div>
+                <!-- End of left aligned links -->
+
+                <!-- Right aligned links -->
+                <div class="collapse navbar-collapse dual-collapse2" id="navbarCollapseRight">
+                <ul class="navbar-nav ms-auto navPadding">
+                    <li class="nav-item">
+                        <a class="nav-link linkText" href="login.html#loginPage">Login</a>
+                    </li>
+                </ul>
+                </div>
+                <!-- End of right aligned links -->
+
+            </nav>
+            <!-- End of navbar -->
+
+            <div class="row">
+                <div data-bs-target="#myNavbar">
+                    <!-- Success Page -->
+                    <div class="container-fluid" id="successPage">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div>
+                                    <h1>Welcome to the Community</h1>
+                                </div>
+                                <div class="breakPara"></div>
+                                <div class="bodyText" style="color:crimson;">
+                                    Your recovery code is {{revCode}} 
+                                    <br><br>
+                                    Note it down somewhere, you will need it if you ever have to reset your password
+                                </div>
+                                <div class="break"></div>
+                                <button type="button" class="btn btn-primary btn-lg btnSize" v-on:click="clearMem()" onclick="location.href='login.html'">Login</button>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="break"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    
+    <script>
+        const app = Vue.createApp({
+            data () {
+                return {
+                    revCode: "",
+                }
+            }
+            ,
+
+            created () {
+                if (localStorage.recovery) {
+                    this.revCode = localStorage.recovery;
+                } else {
+                    window.location.href = "../index.html";
+                }
+
+            }
+            ,
+
+            methods: {
+                clearMem () {
+                    localStorage.removeItem("recovery");
+                }
+                ,
+
+            }
+        })
+
+        app.mount("#successPage")
+    </script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+    crossorigin="anonymous"></script>
+
+</body>
+</html>

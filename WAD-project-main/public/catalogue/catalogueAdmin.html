@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <!-- This is the API from Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+    <!-- this is default table data -->
+    
+    
+    <!-- this is the start of firebase script -->
+    <script>
+        const firebaseConfig ={
+        apiKey: "AIzaSyAuj6iX0Hqp9owZpvWyZRVEiQYLfnKbT2o",
+        authDomain: "wadii-project-7c7dd.firebaseapp.com",
+        projectId: "wadii-project-7c7dd",
+        storageBucket: "wadii-project-7c7dd.appspot.com",
+        messagingSenderId: "987135629921",
+        appId: "1:987135629921:web:50fd77c89ec38592682820",
+        measurementId: "G-PZBNMH36L8"
+        };
+        // const firebaseConfig = {
+        //     apiKey: "AIzaSyAiym6Wu9dKGrrf4DMbWvSIq55ueqMa4pU",
+        //     authDomain: "wad-project-test.firebaseapp.com",
+        //     databaseURL: "https://wad-project-test-default-rtdb.asia-southeast1.firebasedatabase.app",
+        //     projectId: "wad-project-test",
+        //     storageBucket: "wad-project-test.appspot.com",
+        //     messagingSenderId: "662948509887",
+        //     appId: "1:662948509887:web:50db4fc23c13746e6dae0a",
+        //     measurementId: "G-LRN6N246B5"
+        // };
+    // firebase.initializeApp(firebaseConfig);
+    // var chairsDB = firebase.database().ref('chairs');
+
+    //The following example demostrates how to add data
+        
+    
+        // function getDatabaseOnce(){
+        //     const dbRef = firebase.database().ref();
+        //     dbRef.child("chairs").get().then((snapshot) => {
+        //     if (snapshot.exists()) {
+        //         console.log(snapshot.val());
+        //         return snapshot.val();
+        //     } else {
+        //         console.log("No data available");
+        //     }
+        //     }).catch((error) => {
+        //     console.error(error);
+        //     });
+        // }
+
+        function chairObjList(){
+            
+            chairList = []
+            // console.log('computed')
+            // console.log(getDatabaseOnce());
+            for (a_chair of getDatabaseOnce()){
+                chairList.push(a_chair);
+            }
+            // console.log(chairList);
+            return chairList
+        }
+        
+
+        //The following writes the data
+        function writeUserDataWithCompletion(chairObj) {
+            if(!chairObj){
+                document.getElementById("status").innerText = "Chair Registration Failed!";
+                document.getElementById("status").classList.remove('bg-info');
+                document.getElementById("status").classList.add('bg-danger');
+
+                setTimeout(()=>{
+                    document.getElementById("status").innerText = "Status";
+                    document.getElementById("status").classList.remove('bg-danger');
+                    document.getElementById("status").classList.add('bg-info');
+            
+                }, 3000)
+                return
+            }
+            
+
+            firebase.database().ref('chairs/' + chairObj.name.replace(' ','_')).set({
+                name: chairObj.name,
+                description : chairObj.description,
+                rating : chairObj.rating,
+                price : chairObj.price,
+                type : chairObj.type,
+                date : chairObj.date,
+                pageURL : chairObj.pageURL,
+                imageURL : chairObj.imageURL,
+                apiKey : chairObj.apiKey,
+                reviewObjList : chairObj.reviewObjList,
+
+
+            }, function(error) {
+                if (error) {
+                    document.getElementById("status").innerText = "Chair Registration Failed!";
+                    document.getElementById("status").classList.toggle('bg-info');
+                    document.getElementById("status").classList.toggle('bg-danger');
+                } else {
+                document.getElementById("status").innerText = "Chair Registration Done!";
+                setTimeout(()=>{
+                    document.getElementById("status").innerText = "Status";
+
+                }, 3000)
+                }
+            });
+            
+        }
+
+
+        function reviewObj(reviewId, userId, reviewDescription,likeCount,dislikeCount){
+            this.reviewId = reviewId
+            this.userId = userId;
+            this.reviewDescription = reviewDescription;
+            this.likeCount = likeCount;
+            this.dislikeCount = dislikeCount;
+        }
+        function dateObj(day, month, year){
+            this.day = day;
+            this.month = month;
+            this.year = year;
+            this.dateStr = this.day + '/'+ this.month + '/'+ this.year;
+        }
+        
+        review0 = new reviewObj(122, 1772, 'PogChamp', 10, 0);
+        review1 = new reviewObj(145, 6969, 'NICE CHAIR LOL', 1, 5);
+        review2 = new reviewObj(942, 3333, 'Spooderman is just a sticky boy', 0, 10);
+        review3 = new reviewObj(465, 4444, 'Puke, low effort chair', 5, 3);
+        review4 = new reviewObj(452, 5555, 'My chair died within 2 weeks', 2, 0);
+        review5 = new reviewObj(832, 1234, 'I wanna lick this chair so bad', 99, 6);
+        
+
+        function chairObj(name, description, rating, price, type, date, imageURL, apiKey, reviewObjList) {
+            this.name = name;
+            this.description = description;
+            this.rating = rating;
+            this.price = price;
+            this.type = type;
+            this.date = date;
+            this.pageURL = `../productpage.html?chairName=${name}`;
+            this.imageURL = imageURL;
+            this.apiKey = apiKey;
+            this.reviewObjList = reviewObjList;
+        }
+        
+
+        
+        
+
+      
+        function addChair(){
+            var inputIds = ['Name', 'Description', 'Rating', 'Price', 'Type', 'Date', 'imageURL', 'apiKey' ];
+            // console.log('addChair has been clicked')
+            //error validation
+            error_list = document.getElementById('error_list');
+            error_msg = '';
+            error_list.innerHTML = '';
+            for(a_id of inputIds){
+                    if(document.getElementById(a_id).value == ''){
+                    error_msg += `<li>${a_id} is empty</li>`;
+                }
+            }
+            if(document.getElementById('Date').value.split('/').length !=3 ){
+                error_msg += `<li>Please format date in (DD/MM/YYYY) format</li>`;
+            }
+            else{
+                // console.log('date.split = ', document.getElementById('Date').value.split('/'))
+                let [day, month, year] = document.getElementById('Date').value.split('/');
+                if(day.length != 2 || month.length != 2 || year.length != 4){
+                    error_msg +=  `<li>Please format date in (DD/MM/YYYY) format</li>`;
+                }
+                if(Number(day) > 31 || Number(day) < 1 ){
+                    error_msg +=  `<li>Day can only be from 01 to </li>`;
+                }
+                if(Number(month) > 12 || Number(month) < 1 ){
+                    error_msg +=  `<li>Month can only be from 01 to 12</li>`;
+                }
+                if(Number(year) > 2030 || Number(year) < 1990 ){
+                    error_msg +=  `<li>Year can only be from 1990 to 2030</li>`;
+                }
+            }
+            if(error_msg != ''){
+                error_list.innerHTML = error_msg;
+                writeUserDataWithCompletion(addChairObj);
+                return
+            }
+            
+            
+            addDateObj = new dateObj(document.getElementById('Date').value.split('/')[0],document.getElementById('Date').value.split('/')[1],document.getElementById('Date').value.split('/')[2])
+
+            var addChairObj = {
+                name : document.getElementById('Name').value.replace(' ','_'),
+                description : document.getElementById('Description').value,
+                rating : document.getElementById('Rating').value,
+                price : document.getElementById('Price').value,
+                type : document.getElementById('Type').value,
+                date : addDateObj,
+                pageURL : `../productpage.html?chairName=${document.getElementById('Name').value}`,
+                imageURL : document.getElementById('imageURL').value,
+                apiKey : document.getElementById('apiKey').value,
+                reviewObjList : []
+            }
+            if(error_msg != ''){
+                error_list.innerHTML = error_msg;
+                return False
+            }
+
+            writeUserDataWithCompletion(addChairObj);
+
+            for(a_id of inputIds){
+                document.getElementById(a_id).value = ''
+            }
+            document.getElementById('Type').value = 'Office'
+        }
+    </script>
+    <!-- this is the end of firebase script -->
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../project.css">
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+<div id="app">
+  <!-- Navbar -- Change collapse breakpoint with navbar-expand-*breakpoint* -- -->
+  <div class="container-fluid">
+    <div class="row">
+        <!-- Navbar -- Change collapse breakpoint with navbar-expand-*breakpoint* -- -->
+        <nav id="myNavbar" class="navbar navbar-expand-md navbar-custom navbar-dark fixed-top px-3">
+
+            <!-- Brand -->
+            <a class="navbar-brand" href="../index.html">ChairGod</a>
+            <!-- Navbar toggler -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".dual-collapse2" aria-controls=".dual-collapse2" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Left aligned links -->
+            <div class="collapse navbar-collapse dual-collapse2" id="navbarCollapseLeft">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link linkText" href="../index.html#landingPage">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link linkText" href="../index.html#aboutUsPage">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link linkText" href="../index.html#guidePage">Choosing Guide</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link linkText" href="./catalogue1.html">Catalogue</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link linkText" href="../forum/forum.html">Forum</a>
+                </li>
+                
+            </ul>
+            </div>
+            <!-- End of left aligned links -->
+
+            <!-- Right aligned links -->
+            <div class="collapse navbar-collapse dual-collapse2" id="navbarCollapseRight">
+            <ul class="navbar-nav ms-auto navPadding">
+                <li class="nav-item" v-if="loggedUser == ''">
+                    <a class="nav-link linkText" href="../account/login.html">Login</a>
+                </li>
+                <li class="nav-item dropdown" v-if="loggedUser != ''">
+                    <a class="nav-link dropdown-toggle linkText" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">{{ loggedUser }}</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="../account/passwordChange.html">Password Change</a></li>
+                        <li><a class="dropdown-item" v-on:click="logout()" >Log Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+            </div>
+            <!-- End of right aligned links -->
+
+        </nav>
+        <!-- End of navbar -->
+
+    </div>
+  </div>
+  <!-- End of navbar -->
+
+
+
+
+
+  <!-- start of Vue -->
+    <div class="container-fluid mt-5" >
+        <div class="p-3 mb-2 bg-info text-white"  style="font-size: x-large;"id="status">Status</div>
+        
+        
+        <h5 style="text-align: center;">Register new chair</h5>
+        <div class="row d-flex justify-content-center  " >
+            
+            
+            <!-- <div class="col-5">
+                <label for="name">Name</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Chair name" aria-describedby="basic-addon2" id="name">
+                    
+                </div>
+            </div> -->
+            <singleinput v-for="a_input of chairInputText1" :inputtype="a_input"></singleInput>
+            
+            <div class="col-5">
+                <label for="Type">Chair Type</label>
+                
+                <select id="Type" class="input-group form-control mb-3">
+                    <option value="Office">Office</option>
+                    <option value="Gaming">Gaming</option>
+                    <option value="Wooden">Wooden</option>
+                </select>
+                
+            </div>
+            <numberinput v-for="a_input of chairInputNum" :inputtype="a_input"></numberinput>
+            <singleinput v-for="a_input of chairInputText2" :inputtype="a_input"></singleInput>
+            
+            
+        </div>
+        <button class="btn btn-warning " v-on:click="resetChairs" style="margin-left:8.5%">Reset chairs</button>
+        <button class="btn btn-primary m-1" onclick="addChair()" v-on:click="getDatabaseOnce">Add chair</button>
+        <!-- this is the error msg if any -->
+        <div>
+            <ol id="error_list" class="text-danger">
+
+            </ol>
+        </div>
+        
+        
+        <div class= "row">
+            <div>
+            <table class="table table-striped overflow-scroll ">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" v-for="col_name of chairInputText1" >{{col_name}}</th>
+                    <th scope="col" v-for="col_name of chairInputNum">{{col_name}}</th>
+                    <th scope="col">Type</th>
+                    <th scope="col" >pageURL</th>
+                    <th scope="col" v-for="col_name of chairInputText2">{{col_name}}</th>
+                  
+                    <th scope="col" >Reviews</th>
+                    <th scope="col" >Delete</th>    
+                  </tr>
+                <tr v-for="chairProps, chairName, index in chairsDB" :name="chairName" >
+                    <td>{{index +1}}</td>
+                    <td>{{chairName}}</td>
+                    <td>{{chairProps.description}}</td>
+                    <td>{{chairProps.date.dateStr}}</td>
+                    <td>{{chairProps.rating}}</td>
+                    <td>{{chairProps.price}}</td>
+                    <td>{{chairProps.type}}</td>
+                    <td><a :href="chairProps.pageURL">{{chairProps.pageURL}}</a></td>
+                    <td><a :href="chairProps.imageURL">{{chairProps.imageURL}}</a></td>
+                    <td>{{chairProps.apiKey}}</td>
+                    <td ><span v-for="a_review in chairProps.reviewObjList">{{a_review.reviewId + "\t"}}</span></td>
+                    <td><button type="button" class="btn btn-outline-danger" v-on:click="delete_entry" :name = "chairName">X</button></td>
+
+                </tr>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- end of Vue -->
+
+
+
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    //assume the following data is obtained dynamically through Asynchronous requests
+                    chairInputText1: ['Name', 'Description', 'Date' ],
+                    chairInputNum: ['Rating', 'Price'],
+                    chairInputText2: ['imageURL', 'apiKey'],
+                    chairDatabase : [],
+                    loggedUser : "", 
+
+                    //ryans db
+                    firebaseConfig :{
+                        apiKey: "AIzaSyAuj6iX0Hqp9owZpvWyZRVEiQYLfnKbT2o",
+                        authDomain: "wadii-project-7c7dd.firebaseapp.com",
+                        projectId: "wadii-project-7c7dd",
+                        storageBucket: "wadii-project-7c7dd.appspot.com",
+                        messagingSenderId: "987135629921",
+                        appId: "1:987135629921:web:50fd77c89ec38592682820",
+                        measurementId: "G-PZBNMH36L8"
+                    },
+                    //Kruise db
+                    // firebaseConfig : {
+                    // apiKey: "AIzaSyAiym6Wu9dKGrrf4DMbWvSIq55ueqMa4pU",
+                    // authDomain: "wad-project-test.firebaseapp.com",
+                    // databaseURL: "https://wad-project-test-default-rtdb.asia-southeast1.firebasedatabase.app",
+                    // projectId: "wad-project-test",
+                    // storageBucket: "wad-project-test.appspot.com",
+                    // messagingSenderId: "662948509887",
+                    // appId: "1:662948509887:web:50db4fc23c13746e6dae0a",
+                    // measurementId: "G-LRN6N246B5"
+                    // },
+                    chairsDB : {},
+                    chairsList: [],
+
+                }
+                
+            },
+            computed:{
+                
+            },
+            methods:{
+                //this retrieves the database as an object
+                logout () { 
+                    this.loggedUser = ""; 
+                    localStorage.removeItem("loggedUser"); 
+                    alert("Logged Out Successfully"); 
+                    window.location.href = "../index.html"; 
+                },
+                getDatabaseOnce(){
+                const dbRef = firebase.database().ref();
+                dbRef.child("chairs").get().then((snapshot) => {
+                if (snapshot.exists()) {
+                    
+                    this.chairsDB = snapshot.val();
+                    // console.log(snapshot.val())
+                    
+                    return snapshot.val();
+                } else {
+                    console.log("No data available");
+                }
+                }).catch((error) => {
+                console.error(error);
+                });
+            },
+            
+                //The following writes the data
+                writeUserDataWithCompletion(chairObj) {
+                    firebase.database().ref('chairs/' + chairObj.name.replace(' ','_')).set({
+                        name: chairObj.name,
+                        description : chairObj.description,
+                        rating : chairObj.rating,
+                        price : chairObj.price,
+                        type : chairObj.type,
+                        date : chairObj.date,
+                        pageURL : chairObj.pageURL,
+                        imageURL : chairObj.imageURL,
+                        apiKey : chairObj.apiKey,
+                        reviewObj : chairObj.reviewObj,
+
+
+                    }, 
+                    function(error) {
+                        if (error) {
+                        document.getElementById("status").innerText = "Chair Registration Failed!";
+                        } else {
+                        document.getElementById("status").innerText = "Chair Registration Done!";
+                        setTimeout(()=>{
+                            document.getElementById("status").innerText = "Status";
+
+                        }, 3000)
+                        }
+                    });
+                },
+                delete_entry(event){
+                    // console.log('delete_entry')
+                    
+                    name= event.target.name
+                    // console.log(firebase.database().ref('chairs/' + name))
+                    firebase.database().ref('chairs/' + name).set(null)
+                    
+                    this.getDatabaseOnce();
+                },
+                
+                async resetChairs(){
+                    chairs = []
+                    if (confirm("Confirm reset")) {
+                        // console.log('confirm')
+                        await firebase.database().ref('chairs').set({})
+                        await fetch('wadii-project-7c7dd-default-rtdb-export (2) (5).json').then(response => response.json())
+                        .then((json) => {
+                        // console.log(json);
+                    
+                        // console.log(json[chair_name])
+                    
+                        firebase.database().ref().update({
+                                chairs : json.chairs
+                        }, 
+                            function(error) {
+                                if (error) {
+                                document.getElementById("status").innerText = "Reset Failed!";
+                                } else {
+                                document.getElementById("status").innerText = "Reset Done!";
+                                setTimeout(()=>{
+                                    document.getElementById("status").innerText = "Status";
+
+                                }, 3000)
+                                }
+                            });
+                    })
+                    } else {
+                        // console.log('cancel')
+                    }
+                    this.getDatabaseOnce()
+
+                },
+                
+
+                
+            },
+            created(){
+                firebase.initializeApp(this.firebaseConfig);
+                this.getDatabaseOnce();
+                // console.log(this.chairsDB)
+                if (localStorage.loggedUser) { 
+                    this.loggedUser = localStorage.loggedUser;
+                    // console.log(this.loggedUser)
+                    if(localStorage.loggedUser != 'admin'){
+                        alert('Non-admins are not allowed to access this page!')
+                        window.location.href = "./catalogue1.html";
+                    } 
+                }else{
+                    alert('Please login with an admin account!')
+                        window.location.href = "../account/login.html";
+                }
+            },
+            computed:{
+                
+            }
+            
+            
+        })
+        // note: template must have a single root element!
+        app.component('singleinput', {
+            props: ['inputtype'],
+            template: `
+            <div class="col-5">
+                <label :for="inputtype">{{inputtype}}</label>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" :placeholder="'Chair '+ inputtype" aria-describedby="basic-addon2" :id="inputtype" v-if="inputtype != 'Date'">
+                    <input type="text" class="form-control" placeholder="DD/MM/YYYY" aria-describedby="basic-addon2" :id="inputtype"  v-else>
+
+                    
+                </div>
+            </div>`
+        })
+        app.component('numberinput', {
+            props: ['inputtype'],
+            template: `
+            <div class="col-5">
+                <label :for="inputtype">{{inputtype}}</label>
+                <div class="input-group mb-3">
+                    <input type="number" class="form-control"  aria-describedby="basic-addon2" :id="inputtype">
+                    
+                </div>
+            </div>`
+        })
+
+
+        vm = app.mount('#app')
+    </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>   
+
+    
+</body>
+</html>

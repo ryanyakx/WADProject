@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../project.css">
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+    <!-- This is the API from Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+
+</head>
+<body>
+  <div id="app">
+  <!-- Navbar -- Change collapse breakpoint with navbar-expand-*breakpoint* -- -->
+  <div class="container-fluid">
+    <div class="row">
+        <!-- Navbar -- Change collapse breakpoint with navbar-expand-*breakpoint* -- -->
+        <nav id="myNavbar" class="navbar navbar-expand-md navbar-custom navbar-dark fixed-top px-3">
+
+            <!-- Brand -->
+            <a class="navbar-brand" href="../index.html">ChairGod</a>
+            <!-- Navbar toggler -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".dual-collapse2" aria-controls=".dual-collapse2" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Left aligned links -->
+            <div class="collapse navbar-collapse dual-collapse2" id="navbarCollapseLeft">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link linkText" href="../index.html#landingPage">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link linkText" href="../index.html#aboutUsPage">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link linkText" href="../index.html#guidePage">Choosing Guide</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link linkText" href="./catalogue1.html">Catalogue</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link linkText" href="../forum/forum.html">Forum</a>
+                </li>
+                
+            </ul>
+            </div>
+            <!-- End of left aligned links -->
+
+            <!-- Right aligned links -->
+            <div class="collapse navbar-collapse dual-collapse2" id="navbarCollapseRight">
+            <ul class="navbar-nav ms-auto navPadding">
+                <li class="nav-item" v-if="loggedUser == ''">
+                    <a class="nav-link linkText" href="../account/login.html">Login</a>
+                </li>
+                <li class="nav-item dropdown" v-if="loggedUser != ''">
+                    <a class="nav-link dropdown-toggle linkText" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">{{ loggedUser }}</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="../account/passwordChange.html">Password Change</a></li>
+                        <li><a class="dropdown-item" v-on:click="logout()" >Log Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+            </div>
+            <!-- End of right aligned links -->
+
+        </nav>
+        <!-- End of navbar -->
+
+    </div>
+  </div>
+      <!-- End of left aligned links -->
+
+      <!-- Right aligned links -->
+      <div class="collapse  navbar-collapse dual-collapse2" id="navbarCollapseRight">
+      <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+              <a class="nav-link linkText" href="#loginPage">Login</a>
+          </li>
+      </ul>
+      </div>
+      <!-- End of right aligned links -->
+
+  </nav>
+  <!-- End of navbar -->
+  <!-- Start of filter -->
+  <div class="container-fluid bg-light">
+    <div class="row flex-xl-nowrap">
+      <div class="col-12 col-md-3 col-xl-2 bd-sidebar " style="margin-top: 55px;background-color: #d2f4ea;">
+        <div class="d-flex flex-row-reverse align-items-center">
+          <button class="navbar-toggler d-md-none btn m-3 navbar-light" type="button" data-bs-toggle="collapse" data-bs-target=".filterCollapse" aria-controls=".filterCollapse" aria-expanded="false" aria-label="Toggle navigation" >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        
+          <h5 class="d-inline text-muted d-md-none">Show filters</h5>
+        </div>
+        <nav class="navbar navbar-expand-md navbar-dark collapse d-md-block filterCollapse">
+          <ul class="nav nav-pills flex-column mb-auto" v-on:change="filterChange">
+              
+              
+              <li class="nav-item "><h5>Chair type</h5>
+                  <br><input type="radio" name="chairType" value="all" v-model="selectedChairType"><span class="secondary"></span>All
+                  <br><input type="radio" name="chairType" value="gaming" v-model="selectedChairType">Gaming chair
+                  <br><input type="radio" name="chairType" value="wooden" v-model="selectedChairType">Wooden chair
+                  <br><input type="radio" name="chairType" value="office" v-model="selectedChairType">Office chair
+                  
+                  
+              </li>
+              <li class="nav-item ">Minimum Rating: {{selectedRating}}<br><input class="rangeFilter" type="range" id="" min='1' max='5' step='0.5' v-model='selectedRating' ></li>
+              <li class="nav-item">Min Price: {{selectedMinPrice}}<br><input class="rangeFilter" type="range" id="" min='0' max='1000' v-model='selectedMinPrice'></li>
+              <li class="nav-item">Max Price: {{selectedMaxPrice}}<br><input class="rangeFilter" type="range" id="" min='0' max='1000' v-model='selectedMaxPrice'></li>
+              <li class="nav-item"></li>
+
+          </ul>
+        </nav>
+
+      </div>
+      <!-- end of filter -->
+    
+      <div class="col-12 col-md-9 col-xl-10 py-md-3 pl-md-5 bd-content bg-light " style="margin-top: 50px;">
+        
+        <!-- THIS SORT BY IS A FUNCTION TO BE COMPUTED -->
+        <div class="row">
+        <span class="d-inline col text-center">Sort by:</span>
+        
+        <input class="btn btn-primary m-md-1 col" data-bs-toggle="button" type="submit" :id="button1" :value="button1" v-on:click="sortByPopularity" >
+        <input class="btn btn-primary m-md-1 col" data-bs-toggle="button" type="submit" :id="button2" :value="button2" v-on:click="sortByLatest">
+        <input class="btn btn-primary m-md-1 col" data-bs-toggle="button" type="submit" :id="button3" :value="button3" v-on:click="sortByRating">
+       <div class="col-md-2 col-lg-3 col-xl-5"></div>
+        <input class="btn btn-success m-md-1 col-md-3 col-12" v-if="loggedUser == 'admin'" value="Go to admin page" onclick="location.href='catalogueAdmin.html'">
+      </div>  
+        <div class="row justify-content-around align-right">
+          
+          <h3 class="text-center"><br>Featured Chair</h3>
+          <div class="col-md-3 " ></div>
+          <div class="col-12 col-md-5 my-md-1 card bg-dark text-dark">
+            <img v-bind:src="featuredChair.imageURL" class="card-img" alt="...">
+            <div class="card-img-overlay ">
+              <h3 class="card-title"> {{featuredChair.name.split('_').join(' ')}}</h3>
+              <p class="card-text">Description: {{featuredChair.description}} </p>
+              <p class="card-text">Price: {{featuredChair.price}}</p>
+            </div>
+          </div>
+          <div class="col-md-3" ></div>
+        </div>
+        <div class="row justify-content-around">
+          <div v-for="chair of filterChairs" class="col-12 col-sm-6 col-md-4 col-xl-3 my-md-1 card" >
+              
+              <img :src="chair.imageURL" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h4 class="card-text bold">{{chair.name.split('_').join(' ')}}</h4>
+                <div class="m-3">
+                  <p class="card-text"><span class="text-muted">Rating:<img src="../images/star.png" v-for="index in chair.rating" style="height:1rem"></p>
+                  <p class="card-text"><span class="text-muted">Price:</span>  ${{chair.price}}</p>
+                  <p class="card-text"><span class="text-muted">Last Updated:</span>  {{chair.date.dateStr}}</p>
+                  <p class="card-text" style="margin-bottom: 3rem;"><span class="text-muted">Description:</span>  {{chair.description}}</p>
+                </div>
+                <a class="btn btn-primary" :href="chair.pageURL" role="button" style="bottom:1rem;">Go to chair</a>
+                <a class="btn btn-primary m-1" role="button" style="bottom:1rem;display:inline-block" onclick="alert('Leaving the website')" href="https://www.ikea.com/sg/en/cat/office-chairs-computer-chairs-20652/">Buy chair</a>
+              </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+    <script>
+      function chairObj(name, description, rating, price, type, date, pageURL, imageURL, apiKey, reviewObjList) {
+          this.name = name;
+          this.description = description;
+          this.rating = rating;
+          this.price = price;
+          this.type = type;
+          this.date = date;
+          this.pageURL = pageURL;
+          this.imageURL = imageURL;
+          this.apiKey = apiKey;
+          this.reviewObjList = reviewObjList
+        }
+      // var chair1 = new chairObj('gaming chair 1',  'a template gaming chair', 5, 200, 'gaming', new Date(2020, 11,17),'#nextpageurl',"https://media.giphy.com/media/cgCMnZr84zE40/giphy.gif");
+      // var chair2 = new chairObj('wooden chair 1',  'a template wooden chair', 2, 400, 'wooden', new Date(2020, 11,18), '#nextpageurl',"https://media2.giphy.com/media/ypBQolo0HfDej1W1X9/giphy.gif?cid=ecf05e474m6rw2v9o0zic290wlr3k410ffngtmcwkhsunvgm&rid=giphy.gif&ct=g");
+      // var chair3 = new chairObj('gaming chair 2',  'a template gaming chair', 4, 600, 'gaming', new Date(2020, 11,19), '#nextpageurl',"https://media.giphy.com/media/3o6MbmQnyTKNWGHK8g/giphy.gif");
+      // var chair4 = new chairObj('office chair 1',  'a template office chair', 3, 800, 'office', new Date(2020, 11,15), 'nextpageurl',"https://media0.giphy.com/media/8twZKibtk0gyPu4dC0/giphy.gif?cid=ecf05e47y9ohq0f08s4rkthtvxodi7agq6vn7yoeon1441pw&rid=giphy.gif&ct=g");
+      // var chair5 = new chairObj('office chair 2',  'a office chair chair', 4, 1000, 'office', new Date(2020, 11,12), '#nextpageurl',"https://media.giphy.com/media/8vJcTuZHB7U8U/giphy.gif");
+      // var featuredChair = new chairObj('basic chair 1',  'a template basic chair', 5, 200, 'basic', new Date(2020, 11,13), '#nextpageurl',"https://media.giphy.com/media/XGU4CyI27f5xBWGJlY/giphy.gif");
+      
+      vm = Vue.createApp({
+        data(){
+          return{
+            chairs : [],
+            
+
+            btnSort:"Relevance",
+            featuredChair: '',
+            
+            selectedMinPrice: 1,
+            selectedMaxPrice: 1000,
+            selectedChairType:"all",
+            selectedRating: "1",
+            
+            button1 : 'Popularity',
+            button2 : 'Latest',
+            button3 : 'Rating',
+
+            button1class : "btn btn-primary m-md-1",
+            button2class : "btn btn-primary m-md-1",
+            button3class : "btn btn-primary m-md-1",
+
+            activeButton : '',
+            filterChairs : [],
+
+            loggedUser : "", 
+
+            firebaseConfig :{
+            apiKey: "AIzaSyAuj6iX0Hqp9owZpvWyZRVEiQYLfnKbT2o",
+            authDomain: "wadii-project-7c7dd.firebaseapp.com",
+            projectId: "wadii-project-7c7dd",
+            storageBucket: "wadii-project-7c7dd.appspot.com",
+            messagingSenderId: "987135629921",
+            appId: "1:987135629921:web:50fd77c89ec38592682820",
+            measurementId: "G-PZBNMH36L8"
+            },
+          }
+        },
+        methods:{
+          sortByPopularity(){
+            //idk how to quantify this yet
+            // //console.log('sortByPopularity');
+            this.filterChairs = this.chairs.slice();
+            this.filterChange();
+          },
+          logout () { 
+                    this.loggedUser = ""; 
+                    localStorage.removeItem("loggedUser"); 
+                    alert("Logged Out Successfully"); 
+                    window.location.href = "../index.html"; 
+            },
+          sortByLatest(){
+            lastestList = [];
+            while (this.filterChairs.length > 1){
+              currIndex = 0;
+              maxDate = new Date( this.filterChairs[0].date.year, this.filterChairs[0].date.month, this.filterChairs[0].date.day);
+              
+              for(let i=1;i < this.filterChairs.length; i++){
+                curr_date = new Date(this.filterChairs[i].date.year, this.filterChairs[i].date.month, this.filterChairs[i].date.day)
+                if(curr_date > maxDate){
+                  maxDate = curr_date;
+                  currIndex = i;
+                }
+              }
+              lastestList.push(this.filterChairs[currIndex]);
+              this.filterChairs.splice(currIndex,1);              
+            }
+            lastestList.push(this.filterChairs[0]);
+            this.filterChairs = lastestList;
+          },
+          sortByRating(){
+            ratingSort = [];
+            while (this.filterChairs.length > 1){
+              currIndex = 0;
+              maxRating = this.filterChairs[0].rating;
+              for(let i=1;i < this.filterChairs.length; i++){
+                if(this.filterChairs[i].rating > maxRating){
+                  maxRating = this.filterChairs[i].rating;
+                  currIndex = i;
+                }
+              }
+              ratingSort.push(this.filterChairs[currIndex]);
+              this.filterChairs.splice(currIndex,1);              
+            }
+            ratingSort.push(this.filterChairs[0]);
+            this.filterChairs = ratingSort;
+          },
+
+
+          filterByPriceRange(){
+            //console.log('min:',this.selectedMinPrice);
+            //console.log('max:',this.selectedMaxPrice);
+            if(this.selectedMaxPrice > this.selectedMinPrice){
+              for (let i = this.filterChairs.length; i > 0;i--){
+                if(this.filterChairs[i-1].price < this.selectedMinPrice || this.filterChairs[i-1].price > this.selectedMaxPrice ){
+                  this.filterChairs.splice(i-1,1);
+                }
+              }
+            }
+            else{
+              alert('max price less than min price');
+              location.reload();
+            }
+          },
+          
+          filterByType(){
+            //console.log(this.selectedChairType);
+            if(this.selectedChairType == 'all'){
+              return
+            }
+            for (let i = this.filterChairs.length; i > 0;i--){
+              if(this.filterChairs[i - 1].type != this.selectedChairType){
+                this.filterChairs.splice(i-1,1);
+              }
+            }
+          },
+          filterByRating(){
+            for (let i = this.filterChairs.length; i > 0;i--){
+              if(this.filterChairs[i-1].rating < this.selectedRating){
+                this.filterChairs.splice(i-1,1);
+              }
+            }
+          },
+
+          filterChange(){
+            setTimeout(()=>{console.log('this is to not spam changes while the person is using the slider')},1000);
+            this.filterChairs = this.chairs.slice();
+            //console.log('initial chair:', this.filterChairs)
+            this.filterByType();
+            //console.log(this.filterChairs)
+            this.filterByRating();
+            //console.log(this.filterChairs)
+            this.filterByPriceRange();
+            //console.log(this.filterChairs)
+            
+          },
+          
+                //this retrieves the database as an object
+                
+          getDatabaseOnce(){
+            const dbRef = firebase.database().ref();
+            dbRef.child("chairs").get().then((snapshot) => {
+            if (snapshot.exists()) {
+                //console.log(snapshot.val());
+                for (chair_name in snapshot.val()){
+                  chair_obj = snapshot.val()[chair_name]
+                  this.chairs.push(chair_obj)
+                }
+                this.filterChairs = this.chairs.slice();
+                this.featuredChair= this.filterChairs.slice(0,1)[0]
+                return snapshot.val();
+            } else {
+                //console.log("No data available");
+            }
+            }).catch((error) => {
+            console.error(error);
+            });
+          },
+          
+        },
+        computed:{
+            
+        },
+        created(){
+            firebase.initializeApp(this.firebaseConfig);
+            this.getDatabaseOnce();
+            if (localStorage.loggedUser) { 
+                this.loggedUser = localStorage.loggedUser; 
+            } 
+        }
+      }).mount('#app')
+    </script>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>   
+</body>
+</html>
